@@ -20,3 +20,11 @@ resource "aws_subnet" "public_1" {
     Name = "public-wordpress-1"
   }
 }
+
+# Create Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "igw ${var.tagNameDate}"
+  }
