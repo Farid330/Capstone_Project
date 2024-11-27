@@ -52,3 +52,11 @@ resource "aws_subnet" "private-2" {
     Name = "private-wordpress-2" 
   }
 }
+
+# Create an Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+  tags = {
+    Name = "IGW for Wordpress"
+  }
+}
