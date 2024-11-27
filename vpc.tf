@@ -42,3 +42,13 @@ resource "aws_subnet" "private-1" {
     Name = "private-wordpress-1" 
   }
 }
+
+resource "aws_subnet" "private-2" {
+  vpc_id     = aws_vpc.main.id 
+  cidr_block = "10.0.4.0/24"
+  availability_zone = "eu-central-1b"
+
+  tags = {
+    Name = "private-wordpress-2" 
+  }
+}
