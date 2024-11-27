@@ -72,3 +72,16 @@ resource "aws_route_table" "public_route_table" {
     Name = "public-route-table"
   }
 }
+
+#Associate Public Subnets with the Public Route Table
+resource "aws_route_table_association" "public_1_assoc" {
+  subnet_id      = aws_subnet.public_1.id
+  route_table_id = aws_route_table.public_route_table.id
+  depends_on     = [aws_route_table.RB_Public_RouteTable, aws_subnet.public-1]
+}
+
+resource "aws_route_table_association" "public_2_assoc" {
+  subnet_id      = aws_subnet.public-2.id
+  route_table_id = aws_route_table.public_route_table.id
+  depends_on     = [aws_route_table.RB_Public_RouteTable, aws_subnet.public-2]
+}
