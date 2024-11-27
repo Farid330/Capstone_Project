@@ -21,10 +21,4 @@ resource "aws_subnet" "public_1" {
   }
 }
 
-# Create Internet Gateway
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.vpc.id
 
-  tags = {
-    Name = "igw ${var.tagNameDate}"
-  }
