@@ -29,6 +29,6 @@ resource "aws_security_group" "wordpress_sg" {
     cidr_blocks = var.cidr_blocks
   }
 
-  tags = {
-    Name = "wordpress_sg
+tags = {
+  Name = "wordpress_sg"
 }
