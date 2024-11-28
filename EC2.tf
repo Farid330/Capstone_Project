@@ -3,7 +3,7 @@ resource "aws_security_group" "wordpress_sg" {
   name        = "wordpress_sg"
   description = "Security group for WordPress instance"
 
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.vpc.id
 
   ingress {
     description = "SSH"
@@ -29,6 +29,7 @@ resource "aws_security_group" "wordpress_sg" {
     cidr_blocks = var.cidr_blocks
   }
 
-tags = {
-  Name = "wordpress_sg"
+  tags = {
+    Name = "wordpress_sg ${var.tagNameDate}"
+  }
 }
