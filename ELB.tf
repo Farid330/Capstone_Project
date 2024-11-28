@@ -35,3 +35,16 @@ resource "aws_lb" "wordpress_lb" {
     Name = "wordpress-alb"
   }
 }
+
+resource "aws_lb_target_group" "Wordpress_target_group" {
+  name        = "wordpress-target-group"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.main.id
+  target_type = "instance"
+
+  # Add tags
+  tags = {
+    Name = "wordpress-target-group ${var.tagNameDate}"
+  }
+}
