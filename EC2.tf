@@ -30,6 +30,5 @@ resource "aws_security_group" "wordpress_sg" {
   }
 
   tags = {
-    Name = "wordpress_sg ${var.tagNameDate}"
-  }
+    Name = "wordpress_sg
 }
