@@ -28,3 +28,18 @@ resource "aws_autoscaling_group" "dev-AutoScalingGroup" {
     version                         = "$Latest"
   }
 }
+
+
+#Autoscaling policy
+
+resource "aws_autoscaling_policy" "dev_policy" {
+  name                              = "CPUpolicy"
+  policy_type                       = "TargetTrackingScaling"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type        = "ASGAverageCPUUtilization"
+    }
+      target_value                  = 70.0
+  }
+  autoscaling_group_name            = aws_autoscaling_group.dev-AutoScalingGroup.name
+}
