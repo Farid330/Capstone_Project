@@ -3,15 +3,15 @@ variable "tagNameDate" {
   default = ""
 }
 
+
 # VPC Variables
-variable "public_subnet_cidr_blocks" {
-  description = "CIDR blocks for public subnets"
-  default     = ["10.0.0.0/26", "10.0.0.64/26"] # Adjust as needed
+variable "cidr_blocks" {
+  default = ["0.0.0.0/0"]
 }
 
-variable "private_subnet_cidr_blocks" {
-  description = "CIDR blocks for private subnets"
-  default     = ["10.0.0.128/26", "10.0.0.192/26"] # Adjust as needed
+variable "availability_zones" {
+  description = "List of availability zones"
+  default     = ["eu-central-1a", "eu-central-1b"]
 }
 
 # EC2 Variables
