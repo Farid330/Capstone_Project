@@ -5,7 +5,5 @@ resource "aws_launch_template" "dev-launch-template" {
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.wordpress_sg.id]
   key_name = var.key_name
-  #user_data = file("userdatalaunchtemplate.sh")
-  #user_data = "${base64encode(data.template_file.userdatatemplate.rendered)}" 
 
  }
