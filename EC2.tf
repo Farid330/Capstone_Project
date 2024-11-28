@@ -3,7 +3,7 @@ resource "aws_security_group" "wordpress_sg" {
   name        = "wordpress_sg"
   description = "Security group for WordPress instance"
 
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = aws_vpc.main.id
 
   ingress {
     description = "SSH"
