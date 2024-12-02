@@ -24,3 +24,17 @@ variable "key_name" {
   description = "Name of the EC2 key pair"
   default     = "WordPress Key"
 }
+
+# Variables for RDS DB instance
+
+variable "rds_username" {
+  description = "The username for the RDS instance"
+}
+variable "rds_password" {
+  description = "The password for the RDS instance"
+  sensitive   = true
+}
+variable "rds_db_name" {
+  description = "The name of the database"
+  default     = "wordpressDb"
+}
