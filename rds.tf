@@ -32,3 +32,20 @@ resource "aws_security_group" "rds_sg" {
     Name = "RDS Security Group"
   }
 }
+
+####### Aurora MySQL Configuration #######
+resource "aws_rds_cluster" "aurora_cluster" {
+  cluster_identifier      = "aurora-cluster"
+  engine                  = "aurora-mysql"
+  engine_version          = "8.0.mysql_aurora.3.03.0" # Specify a suitable version
+  master_username         = var.db_username
+  master_password         = var.db_password
+  database_name           = var.db_name
+  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
+  db_subnet_group_name    = aws_db_subnet_group.aurora_subnet_group.name
+
+
+  tags = {
+    Name = "Aurora MySQL Cluster"
+  }
+}
