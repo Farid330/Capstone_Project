@@ -14,3 +14,21 @@ resource "aws_s3_bucket_versioning" "versioning_example" {
     status = "Enabled"
   }
 }
+
+# Create an IAM Role for EC2 instance
+resource "aws_iam_role" "ec2_s3_role" {
+  name               = "ec2_s3_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action    = "sts:AssumeRole"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Effect    = "Allow"
+        Sid       = ""
+      }
+    ]
+  })
+}
