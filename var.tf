@@ -25,16 +25,23 @@ variable "key_name" {
   default     = "WordPress Key"
 }
 
-# Variables for RDS DB instance
+###Variables for RDS
 
-variable "rds_username" {
-  description = "The username for the RDS instance"
+variable "db_username" {
+  description = "Database username"
+  type        = string
+  default     = "Ghost330" # Replace with your desired username
 }
-variable "rds_password" {
-  description = "The password for the RDS instance"
-  sensitive   = true
+
+variable "db_password" {
+  description = "Database password"
+  type        = string
+  sensitive   = true    # Ensures password isn't exposed in Terraform outputs
+  default     = "ghost15823" # Replace with your desired password
 }
-variable "rds_db_name" {
-  description = "The name of the database"
-  default     = "wordpressDb"
+
+ variable "db_name" {
+  description = "Database name"
+  type        = string
+  default     = "wordpressdb"
 }
