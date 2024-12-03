@@ -58,6 +58,7 @@ resource "aws_instance" "wordpress_instance" {
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.wordpress_sg.id]
   subnet_id                   = aws_subnet.public-1.id 
+  iam_instance_profile        = aws_iam_role.ec2_s3_role.name
 
 
   tags = {
