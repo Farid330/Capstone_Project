@@ -28,3 +28,26 @@ resource "aws_iam_role" "ec2_s3_role" {
     ]
   })
 }
+
+ #Attach the S3 full access policy to the IAM role
+resource "aws_iam_role_policy" "ec2_s3_policy" {
+  name   = "ec2_s3_policy"
+  role   = aws_iam_role.ec2_s3_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = [
+          "s3:ListBucket",
+          "s3:GetObject",
+          "s3:PutObject"
+        ]
+        Resource = [
+          "arn:aws:s3:::${aws_s3_bucket.wordpress_bucket.bucket}",
+          "arn:aws:s3:::${aws_s3_bucket.wordpress_bucket.bucket}/*"
+        ]
+      }
+    ]
+  })
+}
