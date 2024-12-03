@@ -44,8 +44,8 @@ resource "aws_iam_role_policy" "ec2_s3_policy" {
           "s3:PutObject"
         ]
         Resource = [
-          "arn:aws:s3:::${aws_s3_bucket.wordpress_bucket.bucket}",
-          "arn:aws:s3:::${aws_s3_bucket.wordpress_bucket.bucket}/*"
+          "arn:aws:s3:::${aws_s3_bucket.wordpress-project.bucket}",
+          "arn:aws:s3:::${aws_s3_bucket.wordpress-project.bucket}/*"
         ]
       }
     ]
