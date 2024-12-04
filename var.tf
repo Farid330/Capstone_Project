@@ -11,7 +11,7 @@ variable "cidr_blocks" {
 
 variable "availability_zones" {
   description = "List of availability zones"
-  default     = ["eu-central-1a", "eu-central-1b"]
+  default     = ["us-west-1a", "us-west-1b"]
 }
 
 # EC2 Variables
@@ -22,7 +22,7 @@ variable "ec2_instance_type" {
 
 variable "key_name" {
   description = "Name of the EC2 key pair"
-  default     = "WordPress Key"
+  default     = "vockey"
 }
 
 ###Variables for RDS
