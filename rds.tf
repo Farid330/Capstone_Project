@@ -1,17 +1,17 @@
 #Creating DB Subnet Group
-resource "aws_db_subnet_group" "aurora_subnet_group" {
-  name       = "aurora-db-subnet-group"
+resource "aws_db_subnet_group" "private_group" {
+  name       = "mysql-db-subnet-group"
   subnet_ids = [aws_subnet.private-1.id, aws_subnet.private-2.id]
 
   tags = {
-    Name = "Aurora DB Subnet Group"
+    Name = "Private-group"
   }
 }
 
-#Adding security group for RDS Aurora
+#Adding security group for RDS MYSQL
 resource "aws_security_group" "rds_sg" {
-  name        = "aurora-rds-sg"
-  description = "Security group for Aurora RDS cluster"
+  name        = "mysql-sg"
+  description = "Security group for mysql db"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -33,37 +33,22 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
-####### Aurora MySQL Configuration #######
-resource "aws_rds_cluster" "aurora_cluster" {
-  cluster_identifier      = "aurora-cluster"
-  engine                  = "aurora-mysql"
-  engine_version          = "5.7.mysql_aurora.2.11.1" # Specify a suitable version
-  master_username         = var.db_username
-  master_password         = var.db_password
-  database_name           = var.db_name
-  vpc_security_group_ids  = [aws_security_group.rds_sg.id]
-  db_subnet_group_name    = aws_db_subnet_group.aurora_subnet_group.name
-  skip_final_snapshot       = true
-  final_snapshot_identifier = "aurora-final-snapshot"
-
-
-  tags = {
-    Name = "Aurora MySQL Cluster"
-  }
-}
-
-
-resource "aws_rds_cluster_instance" "aurora_instances" {
-  count             = 2
-  identifier        = "aurora-instance-${count.index}"
-  cluster_identifier = aws_rds_cluster.aurora_cluster.id
-  instance_class    = "db.t3.small"
-  engine            = aws_rds_cluster.aurora_cluster.engine
-  engine_version    = aws_rds_cluster.aurora_cluster.engine_version
-  publicly_accessible = false
-  db_subnet_group_name = aws_db_subnet_group.aurora_subnet_group.name
-
-  tags = {
-    Name = "Aurora Instance ${count.index}"
+# Create RDS Database
+resource "aws_db_instance" "mysql" {
+  allocated_storage      = "10"
+  db_name                = var.db_name
+  engine                 = "mysql"
+  engine_version         = "8.0.35"
+  instance_class         = "db.t3.micro"
+  identifier             = "rds-db"
+  username               = var.db_username
+  password               = var.db_password
+  skip_final_snapshot    = true
+  multi_az               = false
+  storage_encrypted      = false
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  db_subnet_group_name   = aws_db_subnet_group.private_group.name
+    tags = {
+    Name = "rds_db ${var.tagNameDate}"
   }
 }
