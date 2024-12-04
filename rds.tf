@@ -52,3 +52,22 @@ resource "aws_db_instance" "mysql" {
     Name = "rds_db ${var.tagNameDate}"
   }
 }
+
+data "aws_db_instance" "mysql_data" {
+  db_instance_identifier = aws_db_instance.mysql.identifier
+}
+
+#Get Database name, username, password, endpoint from above RDS
+output "rds_db_name" {
+  value = data.aws_db_instance.mysql_data.db_name
+}
+output "rds_username" {
+  value = var.db_username
+}
+output "rds_passwordword" {
+  value     = var.db_password
+  sensitive = true
+}
+output "rds_endpoint" {
+  value = data.aws_db_instance.mysql_data.endpoint
+}
