@@ -25,7 +25,7 @@ resource "aws_autoscaling_group" "wordpress_autoscaling_group" {
 #Create a launch template
 resource "aws_launch_template" "scaling_launch_template" {
   name_prefix            = "scaling_launch_template"
-  image_id               = data.aws_ami.amazon_linux.id
+  image_id               = data.aws_ami.amazon_linux2.id
   instance_type          = var.ec2_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.wordpress_sg.id]
@@ -41,13 +41,6 @@ resource "aws_launch_template" "scaling_launch_template" {
     }
   }
 }
-
-# resource "aws_launch_configuration" "scaling_launch_config" {
-#   image_id        = data.aws_ami.amazon_linux.id
-#   instance_type   = var.ec2_instance_type
-#   security_groups = ["${aws_security_group.wordpress_sg.id}"]
-#   key_name        = var.key_name
-# }
 
 resource "aws_autoscaling_policy" "scale_out" {
   name                   = "scale_out"

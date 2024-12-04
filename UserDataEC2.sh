@@ -31,18 +31,18 @@ cp -rvf wordpress/* .
 rm -R wordpress 
 rm latest.tar.gz
 
-#Start MariaDB service and enable it on system startup
-sudo systemctl start mariadb
-sudo systemctl enable mariadb
+# #Start MariaDB service and enable it on system startup
+# sudo systemctl start mariadb
+# sudo systemctl enable mariadb
 
-#Set Mariadb root password
-DBRootPassword='rootpassword'
-mysqladmin -u root password $DBRootPassword
+# #Set Mariadb root password
+# DBRootPassword='rootpassword'
+# mysqladmin -u root password $DBRootPassword
 
-# # Set database variables
-DBName='wordpressdb'
-DBUser='Ghost330'
-DBPassword='ghost15823'
+# # # Set database variables
+# DBName='wordpressdb'
+# DBUser='Ghost330'
+# DBPassword='ghost15823'
 
 # Update all installed 
 sudo yum update -y
@@ -64,15 +64,6 @@ chown -R ec2-user:apache /var/www
 chmod 2775 /var/www 
 find /var/www -type d -exec chmod 2775 {} \; 
 find /var/www -type f -exec chmod 0664 {} \;
-
-# Create Wordpress database
-
-echo "CREATE DATABASE $DBName;" >> /tmp/db.setup 
-echo "CREATE USER '$DBUser'@'localhost' IDENTIFIED BY '$DBPassword';" >> /tmp/db.setup 
-echo "GRANT ALL ON $DBName.* TO '$DBUser'@'localhost';" >> /tmp/db.setup 
-echo "FLUSH PRIVILEGES;" >> /tmp/db.setup 
-mysql -u root --password=$DBRootPassword < /tmp/db.setup
-sudo rm /tmp/db.setup
 
 
 # Restart Apache

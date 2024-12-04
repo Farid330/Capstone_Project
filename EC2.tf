@@ -38,20 +38,20 @@ resource "aws_security_group" "wordpress_sg" {
 locals {
   name = "WordPress Instance ${var.tagNameDate}"
 }
-#Get latest ami ID of Amazon Linux - values = ["al2023-ami-2023*x86_64"]
-data "aws_ami" "amazon_linux" {
+#Get latest ami ID of Amazon Linux 2
+data "aws_ami" "amazon_linux2" {
   most_recent = true
   owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023*x86_64"]
+    values = ["amzn2-ami-kernel-5.10-hvm-2.0.20241113.1-x86_64-gp2"]
   }
 }
 
 ###Create EC2 instance WordPress
 resource "aws_instance" "wordpress_instance" {
-  ami                         = data.aws_ami.amazon_linux.id
+  ami                         = data.aws_ami.amazon_linux2.id
   instance_type               = var.ec2_instance_type
   availability_zone           = var.availability_zones[0]
   key_name                    = var.key_name
