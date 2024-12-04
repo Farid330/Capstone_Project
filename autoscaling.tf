@@ -1,6 +1,6 @@
 #Launch Template
-resource "aws_launch_template" "dev-launch-template" {
-  name = "WebserverLaunchTemplate"
+resource "aws_launch_template" "wordpress" {
+  name = "WordPressLaunchTmpl"
   //image_id = data.aws_ami.amzLinux.id
   image_id =data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
@@ -12,7 +12,7 @@ resource "aws_launch_template" "dev-launch-template" {
  }
 
  #Autoscaling Group
-resource "aws_autoscaling_group" "dev-AutoScalingGroup" {
+resource "aws_autoscaling_group" "WordPress-AutoScalingGroup" {
   name                              = "WordPress-EC2-Autoscaling-group"
   max_size                          = 4
   min_size                          = 1
@@ -24,7 +24,7 @@ resource "aws_autoscaling_group" "dev-AutoScalingGroup" {
   health_check_grace_period         = 300
 
   launch_template {
-    id                              = aws_launch_template.dev-launch-template.id
+    id                              = aws_launch_template.wordpress.id
     version                         = "$Latest"
   }
 }
@@ -32,7 +32,7 @@ resource "aws_autoscaling_group" "dev-AutoScalingGroup" {
 
 #Autoscaling policy
 
-resource "aws_autoscaling_policy" "dev_policy" {
+resource "aws_autoscaling_policy" "wordpress_policy" {
   name                              = "CPUpolicy"
   policy_type                       = "TargetTrackingScaling"
   target_tracking_configuration {
@@ -41,5 +41,5 @@ resource "aws_autoscaling_policy" "dev_policy" {
     }
       target_value                  = 70.0
   }
-  autoscaling_group_name            = aws_autoscaling_group.dev-AutoScalingGroup.name
+  autoscaling_group_name            = aws_autoscaling_group.WordPress-AutoScalingGroup.name
 }
