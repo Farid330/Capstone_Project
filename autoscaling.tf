@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "wordpress_autoscaling_group" {
   }
 
   name                      = "wordpress-asg"
-  min_size                  = 1
+  min_size                  = 2
   max_size                  = 4
   desired_capacity          = 2
   vpc_zone_identifier       = [aws_subnet.public-1.id, aws_subnet.public-2.id] 
