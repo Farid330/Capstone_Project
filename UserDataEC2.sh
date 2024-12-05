@@ -31,6 +31,21 @@ sudo cp -rvf wordpress/* .
 sudo rm -rf wordpress  
 sudo rm -f latest.tar.gz
 
+# Retrieve RDS endpoint from Terraform output
+DBName=${rds_db_name}
+DBUser=${rds_username}
+DBPassword=${rds_password}
+RDS_ENDPOINT=${rds_endpoint}
+
+
+# Create a temporary file to store the database value
+sudo touch db.txt
+sudo chmod 777 db.txt
+sudo echo "DATABASE $DBName;" >> db.txt
+sudo echo "USER $DBUser;" >> db.txt
+sudo echo "PASSWORD $DBPassword;" >> db.txt
+sudo echo "HOST $RDS_ENDPOINT;" >> db.txt
+
 # #Start MariaDB service and enable it on system startup
 # sudo systemctl start mariadb
 # sudo systemctl enable mariadb
@@ -59,9 +74,9 @@ sudo sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
 sudo sed -i "s/'localhost'/'$RDS_ENDPOINT'/g" wp-config.php
 
 #Grant permissions
-usermod -a -G apache ec2-user 
-chown -R ec2-user:apache /var/www 
-chmod 2775 /var/www 
+sudo usermod -a -G apache ec2-user 
+sudo chown -R ec2-user:apache /var/www 
+sudo chmod 2775 /var/www 
 find /var/www -type d -exec chmod 2775 {} \; 
 find /var/www -type f -exec chmod 0664 {} \;
 
