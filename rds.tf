@@ -59,7 +59,7 @@ data "aws_db_instance" "mysql_data" {
 
 #Get Database name, username, password, endpoint from above RDS
 output "rds_db_name" {
-  value = aws_db_instance.mysql_data.db_name
+   value = aws_db_instance.mysql.db_name
 }
 output "rds_username" {
   value = var.db_username
@@ -69,5 +69,5 @@ output "rds_passwordword" {
   sensitive = true
 }
 output "rds_endpoint" {
-  value = aws_db_instance.mysql_data.endpoint
+  value = aws_db_instance.mysql.endpoint
 }

@@ -38,8 +38,6 @@ DBPassword="ghost15823"
 DBHost=$(echo "${rds_endpoint}" | sed 's/:3306//')
 
 
-
-
 # Create a temporary file to store the database value
 sudo touch db.txt
 sudo chmod 777 db.txt
@@ -69,8 +67,10 @@ sudo systemctl restart httpd
 
 # # Configure Wordpress
 
-sudo apt-get update
-sudo apt-get install -y wget unzip jq curl
+sudo sed -i "s/'database_name_here'/'$DBName'/g" /var/www/html/wp-config.php
+sudo sed -i "s/'username_here'/'$DBUser'/g" /var/www/html/wp-config.php
+sudo sed -i "s/'password_here'/'$DBPassword'/g" /var/www/html/wp-config.php
+sudo sed -i "s/'localhost'/'$RDS_ENDPOINT'/g" /var/www/html/wp-config.php
 
 #Grant permissions
 sudo usermod -a -G apache ec2-user 
