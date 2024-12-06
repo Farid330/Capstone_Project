@@ -70,7 +70,7 @@ sudo systemctl restart httpd
 sudo sed -i "s/'database_name_here'/'$DBName'/g" /var/www/html/wp-config.php
 sudo sed -i "s/'username_here'/'$DBUser'/g" /var/www/html/wp-config.php
 sudo sed -i "s/'password_here'/'$DBPassword'/g" /var/www/html/wp-config.php
-sudo sed -i "s/'localhost'/'$RDS_ENDPOINT'/g" /var/www/html/wp-config.php
+sudo sed -i "s/'localhost'/'$DBHost'/g" /var/www/html/wp-config.php
 
 #Grant permissions
 sudo usermod -a -G apache ec2-user 
