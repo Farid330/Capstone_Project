@@ -31,11 +31,13 @@ sudo cp -rvf wordpress/* .
 sudo rm -rf wordpress  
 sudo rm -f latest.tar.gz
 
-# Retrieve RDS endpoint from Terraform output
-DBName=${rds_db_name}
-DBUser=${rds_username}
-DBPassword=${rds_password}
-RDS_ENDPOINT=${rds_endpoint}
+#Set Database Variables 
+DBName="wordpressdb"
+DBUser="Ghost330"
+DBPassword="ghost15823"
+DBHost=$(echo "${rds_endpoint}" | sed 's/:3306//')
+
+
 
 
 # Create a temporary file to store the database value
@@ -67,11 +69,8 @@ sudo systemctl restart httpd
 
 # # Configure Wordpress
 
-sudo cp ./wp-config-sample.php ./wp-config.php # rename the file from sample to clean
-sudo sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php
-sudo sed -i "s/'username_here'/'$DBUser'/g" wp-config.php
-sudo sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
-sudo sed -i "s/'localhost'/'$RDS_ENDPOINT'/g" wp-config.php
+sudo apt-get update
+sudo apt-get install -y wget unzip jq curl
 
 #Grant permissions
 sudo usermod -a -G apache ec2-user 
