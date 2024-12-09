@@ -27,9 +27,11 @@ sudo yum install -y wget
 sudo wget http://wordpress.org/latest.tar.gz -P /var/www/html/
 cd /var/www/html
 sudo tar -zxvf latest.tar.gz 
-sudo cp -rvf wordpress/* . 
+sudo cp -rvf wordpress/* .
 sudo rm -rf wordpress  
 sudo rm -f latest.tar.gz
+
+
 
 #Set Database Variables 
 DBName="wordpressdb"
@@ -44,7 +46,7 @@ sudo chmod 777 db.txt
 sudo echo "DATABASE $DBName;" >> db.txt
 sudo echo "USER $DBUser;" >> db.txt
 sudo echo "PASSWORD $DBPassword;" >> db.txt
-sudo echo "HOST $RDS_ENDPOINT;" >> db.txt
+sudo echo "HOST $DBHost;" >> db.txt
 
 # #Start MariaDB service and enable it on system startup
 # sudo systemctl start mariadb
@@ -66,7 +68,7 @@ sudo yum update -y
 sudo systemctl restart httpd
 
 # # Configure Wordpress
-
+sudo cp /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 sudo sed -i "s/'database_name_here'/'$DBName'/g" /var/www/html/wp-config.php
 sudo sed -i "s/'username_here'/'$DBUser'/g" /var/www/html/wp-config.php
 sudo sed -i "s/'password_here'/'$DBPassword'/g" /var/www/html/wp-config.php
