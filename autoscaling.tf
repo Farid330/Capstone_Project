@@ -29,7 +29,7 @@ resource "aws_launch_template" "scaling_launch_template" {
   instance_type          = var.ec2_instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.wordpress_sg.id]
-  #user_data              = base64encode(data.template_file.userdataEC.rendered)
+  user_data              = base64encode(data.template_file.userdataEC.rendered)
 
   lifecycle {
     create_before_destroy = true
@@ -41,6 +41,7 @@ resource "aws_launch_template" "scaling_launch_template" {
     }
   }
 }
+
 
 resource "aws_autoscaling_policy" "scale_out" {
   name                   = "scale_out"

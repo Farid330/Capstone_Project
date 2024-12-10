@@ -59,9 +59,13 @@ resource "aws_instance" "wordpress_instance" {
   vpc_security_group_ids      = [aws_security_group.wordpress_sg.id]
   subnet_id                   = aws_subnet.public-1.id 
 
-
+  user_data = file("UserDataEC2.sh")
 
   tags = {
     Name = local.name
   }
+}
+
+data "template_file" "userdataEC" {
+  template = file("UserDataEC2.sh")
 }
