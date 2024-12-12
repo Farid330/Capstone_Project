@@ -14,12 +14,13 @@ The objective of this project is to deploy a fault-tolerant WordPress website us
     AWS CLI configured with appropriate IAM permissions.
 
 2. Setup Steps:
-    Creat User data for EC2 instances in order to install necessary services for hosting a Wordpress server.
-    Launch EC2 instance in public subnet 1 with WordPress AMI installed.
-    Define an Auto Scaling Group with policies to maintain availability.
-    Create an RDS MySQL instance for WordPress data.
-    Create an ALB with target groups pointing to EC2 instances.
-    Monitor Using CloudWatch
+    
+ - Creat User data for EC2 instances in order to install necessary services for hosting a Wordpress server.
+ - Launch EC2 instance in public subnet 1 with WordPress AMI installed.
+ - Define an Auto Scaling Group with policies to maintain availability.
+ - Create an RDS MySQL instance for WordPress data.
+ - Create an ALB with target groups pointing to EC2 instances.
+ - Monitor Using CloudWatch
 
 # Features
 
@@ -33,3 +34,9 @@ The objective of this project is to deploy a fault-tolerant WordPress website us
     CloudWatch provides real-time insights, logs, and alarms for system performance.
 5. Scalability:
     Automatically adjusts to traffic spikes, ensuring an uninterrupted user experience.
+
+
+# Additional Notes
+- For security purposes, ensure that your AWS credentials are securely stored and never committed to version - control.
+- Regularly monitor the resources created by this solution to optimize costs and performance.
+- Consider implementing backup and disaster recovery mechanisms for the RDS instance to enhance data resilience.
